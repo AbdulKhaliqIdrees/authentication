@@ -3,6 +3,7 @@ import 'package:authentication/screens/target_screen.dart';
 import 'package:authentication/screens/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -28,8 +29,10 @@ class _LoginState extends State<Login> {
               );
             });
       } else {
-        FirebaseAuth.instance
+        progressDialog.show();
+        await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+            progressDialog.hide();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
@@ -37,13 +40,52 @@ class _LoginState extends State<Login> {
           }),
         );
       }
-    } catch (e) {
-      print(e);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return showDialog(
+            context: context,
+            builder: (Builder) {
+              return AlertDialog(
+                title: Text("Error"),
+                content: Text("No User found for that Email!"),
+              );
+            });
+      } else if (e.code == 'wrong-password') {
+        return showDialog(
+            context: context,
+            builder: (Builder) {
+              return AlertDialog(
+                title: Text("Error"),
+                content: Text("Wrong Password provided for that user!"),
+              );
+            });
+      } else {
+      
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+            
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return Target();
+          }),
+        );
+      }
     }
   }
-
+ late ProgressDialog progressDialog;
   @override
   Widget build(BuildContext context) {
+    progressDialog = ProgressDialog(
+      context,
+      type: ProgressDialogType.normal,
+      textDirection: TextDirection.rtl,
+      isDismissible: true,
+    );
+    progressDialog.style(
+     message:
+          "...Loading",
+    );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

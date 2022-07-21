@@ -1,9 +1,9 @@
-import 'package:authentication/controllers/auth_controller.dart';
+import 'package:authentication/controllers/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatelessWidget {
-  final authcontroller = Get.put(AuthController());
+  final signupcontroller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class SignUp extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
-                    controller: authcontroller.emailcontroller,
+                    controller: signupcontroller.emailcontroller,
                     decoration: InputDecoration(
                       labelText: "Email Address",
                     ),
@@ -26,7 +26,7 @@ class SignUp extends StatelessWidget {
                     height: 15,
                   ),
                   TextField(
-                    controller: authcontroller.passwordcontroller,
+                    controller: signupcontroller.passwordcontroller,
                     decoration: InputDecoration(
                       labelText: "Password",
                     ),
@@ -35,7 +35,7 @@ class SignUp extends StatelessWidget {
                     height: 15,
                   ),
                   TextField(
-                    controller: authcontroller.confirmpasswordcontroller,
+                    controller: signupcontroller.confirmpasswordcontroller,
                     decoration: InputDecoration(
                       labelText: "Confirm Passeord",
                     ),
@@ -47,10 +47,10 @@ class SignUp extends StatelessWidget {
                     color: Colors.red,
                     child: Text("Create Account"),
                     onPressed: () {
-                      authcontroller.createAccount();
-                      authcontroller.emailcontroller.clear();
-                      authcontroller.passwordcontroller.clear();
-                      authcontroller.confirmpasswordcontroller.clear();
+                      signupcontroller.createAccount();
+                      signupcontroller.emailcontroller.clear();
+                      signupcontroller.passwordcontroller.clear();
+                      signupcontroller.confirmpasswordcontroller.clear();
                     },
                   ),
                 ],

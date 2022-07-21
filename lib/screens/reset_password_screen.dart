@@ -1,9 +1,9 @@
-import 'package:authentication/controllers/auth_controller.dart';
+import 'package:authentication/controllers/reset_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Reset extends StatelessWidget {
-  final authcontroller = Get.put(AuthController());
+  final resetcontroller  = Get.put(ResetController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class Reset extends StatelessWidget {
                   color: Colors.orange),
             ),
              TextField(
-                  controller: authcontroller.resetcontroller,
+                  controller: resetcontroller.resetcontroller,
                   decoration: InputDecoration(
                     labelText: "Enter your Email",
                     border: OutlineInputBorder(
@@ -30,8 +30,8 @@ class Reset extends StatelessWidget {
                 ),
             MaterialButton(
               onPressed: () {
-                authcontroller.reset();
-                authcontroller.resetcontroller.clear();
+                resetcontroller.reset();
+                resetcontroller.resetcontroller.clear();
               },
               color: Colors.red,
               child: Text("Reset"),

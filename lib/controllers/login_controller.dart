@@ -15,6 +15,7 @@ class LoginController extends GetxController {
           "Error",
           "Please fill all the details!",
           backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
         );
       } else {
         await FirebaseAuth.instance
@@ -27,12 +28,14 @@ class LoginController extends GetxController {
           "Error",
           "No user found for that email!",
           backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
         );
       } else if (e.code == 'wrong-password') {
         Get.snackbar(
           "Error",
           "Password is wrong for that user!",
           backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
         );
       } else {
         await FirebaseAuth.instance

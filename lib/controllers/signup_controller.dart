@@ -18,12 +18,14 @@ class SignUpController extends GetxController {
           "Error",
           "Please fill all the details!",
           backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM, 
         );
       } else if (password != confirmpassword) {
         Get.snackbar(
           "Error",
           "Password is wrong!",
           backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM,
         );
       } else {
         await FirebaseAuth.instance
